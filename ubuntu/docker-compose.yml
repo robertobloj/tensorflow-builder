@@ -1,0 +1,50 @@
+version: "3.6"
+services:
+  tensorflow-bazel:
+    image: tensorflow-bazel
+    build:
+      context: ./
+      cache_from:
+        - tensorflow-bazel
+      dockerfile: ./bazel/Dockerfile
+      args:
+        - BAZEL_VER=$BAZEL_VERSION
+        - GCC_VER=$GCC_VERSION
+  tensorflow-sources:
+    image: tensorflow-sources
+    build:
+      context: ./
+      cache_from:
+        - tensorflow-sources
+      dockerfile: ./sources/Dockerfile
+      args:
+        - TF_VERSION=$TF_VERSION
+    depends_on:
+        - tensorflow-bazel
+  tensorflow-builder:
+    image: tensorflow-builder
+    build:
+      context: ./
+      cache_from:
+        - tensorflow-builder
+      # Generic architecture for most processors
+      dockerfile: ./builder/generic/Dockerfile
+      # Specified architecture
+      # dockerfile: ./builder/arch/Dockerfile
+      args:
+        - TF_NEED_JEMALLOC=$TF_NEED_JEMALLOC
+        - TF_NEED_GCP=$TF_NEED_GCP
+        - TF_NEED_HDFS=$TF_NEED_HDFS
+        - TF_NEED_S3=$TF_NEED_S3
+        - TF_NEED_KAFKA=$TF_NEED_KAFKA
+        - TF_ENABLE_XLA=$TF_ENABLE_XLA
+        - TF_NEED_GDR=$TF_NEED_GDR
+        - TF_NEED_VERBS=$TF_NEED_VERBS
+        - TF_NEED_OPENCL_SYCL=$TF_NEED_OPENCL_SYCL
+        - TF_NEED_CUDA=$TF_NEED_CUDA
+        - TF_NEED_MPI=$TF_NEED_MPI
+        - TF_DOWNLOAD_CLANG=$TF_DOWNLOAD_CLANG
+        - TF_SET_ANDROID_WORKSPACE=$TF_SET_ANDROID_WORKSPACE
+        - CC_OPT_FLAGS=$CC_OPT_FLAGS
+    depends_on:
+        - tensorflow-sources
