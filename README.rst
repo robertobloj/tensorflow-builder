@@ -38,7 +38,7 @@ What builder image do I need?
 
 We provided two images for compiling process:
 
-- builder/generic - image produces code optimized for the most common IA32/AMD64/EM64T processors.
+- builder/generic - image produces code optimized for the most common *IA32/AMD64/EM64T* processors.
 - builder/arch - image allows you to decide what architecture you need
 
 If you want to build tensorflow optimized for most common CPUs,
@@ -58,7 +58,7 @@ enable and/or disable.
 
 Lets assume, you want to build the simplest tensorflow
 (without any extra instructions). Please open *docker-compose.yml* file,
-find *tensorflow-builder* section and change it:
+find *tensorflow-builder* section and choose generic dockerfile:
 
 .. code-block:: bash
 
@@ -76,11 +76,10 @@ find *tensorflow-builder* section and change it:
 
 This configuration allows you to build the simplest version of tensorflow.
 
-Another option for generic compiling process is when you want to have all
-control what instructions of CPU you enable or disable.
+Another option for generic compiling process is when **you want to have all
+control** what instructions of CPU you enable or disable.
 
-For that case also have to choose *dockerfile: ./builder/generic/Dockerfile* in
-*docker-compose.yml* file, but you have to edit *Dockerfile*:
+For that case you additionally have to edit *Dockerfile*:
 
 .. code-block:: bash
 
@@ -93,22 +92,22 @@ conditionals we can setup *builder/generic/Dockerfile*:
 
 .. code-block:: bash
 
-RUN python ./configure.py && \
-    bazel build \
-        --config=opt \
-        \
-        # decide what instructions you will enable, uncomment what needed
-        --copt=-mmmx \
-        --copt=-msse \
-        --copt=-msse2 \
-        \
-        # decide what instructions you will disable, uncomment what needed
-        --copt=-mno-avx \
+    RUN python ./configure.py && \
+        bazel build \
+            --config=opt \
+            \
+            # decide what instructions you will enable, uncomment what needed
+            --copt=-mmmx \
+            --copt=-msse \
+            --copt=-msse2 \
+            \
+            # decide what instructions you will disable, uncomment what needed
+            --copt=-mno-avx \
 
-        ...
+            ...
 
 For further investigation please also check `gcc compilation flags`_
-and choose proper compilation options for gcc_.
+and choose proper compilation options for chosen gcc_.
 
 Specified CPU architecture
 ---------------------------------------
