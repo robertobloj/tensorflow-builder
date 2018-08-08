@@ -144,6 +144,10 @@ the processor type).
 
 .. code-block:: bash
 
+    # This selects the CPU to tune for at compilation time by determining the processor type of the compiling machine.
+    # Using -mtune=native will produce code optimized for the local machine under the constraints of the selected
+    # instruction set. Using -march=native will enable all instruction subsets supported by the local machine
+    # (hence the result might not run on different machines).
     CC_OPT_FLAGS=-mtune=native
 
 Another examples:
@@ -164,17 +168,21 @@ Another examples:
     CC_OPT_FLAGS=-mtune=pentium4
 
     # OR
+
+    # you architecture
     CC_OPT_FLAGS=[your architecture]
 
 
 Advanced configuration
 -----------------------------------------
 
+By default we provided default values for tensorflow compiling configuration.
+But it you need, you can easily change it by edit *.env* file.
 
+Tensorflow configuration variables have *TF_* prefix.
 
-2. We want to build tensorflow with Kafka support, but we don't need support for S3:
-
-We can edit *.env* file and setup:
+For example we want to build tensorflow with Kafka support,
+but we don't need support for S3:
 
 .. code-block:: bash
 
@@ -184,19 +192,28 @@ We can edit *.env* file and setup:
     # Do you wish to build TensorFlow with Apache Kafka Platform support? [Y/n]
     TF_NEED_KAFKA=1
 
-3. We want to build tensorflow for the most common IA32/AMD64/EM64T processors:
 
-We can edit *.env* file and choose:
+You can also choose bazel_ version, tensorflow_ version and gcc_ version:
 
 .. code-block:: bash
 
-    CC_OPT_FLAGS=-mtune=generic
+    # gcc compilator version
+    GCC_VERSION=4.8
 
+    # Bazel version what we use for building process
+    BAZEL_VERSION=0.15.1
+
+    # tensorflow branch from github for building process
+    TF_VERSION=r1.9
+
+If you change gcc_ or bazel_ everything should work, but...
+I can't promise it :)
 
 How to compile tensorflow from sources?
 -----------------------------------------
 
-When we have configured variables, we can build tensorflow from sources by running following command:
+When we have configured variables,
+we can build tensorflow from sources by running following command:
 
 .. code-block:: bash
 
@@ -206,10 +223,27 @@ Script builds:
 
 - bazel image - image downloads bazel, installs requirements, prepares for work.
 - sources image - image downloads tensorflow sources, extracts it.
-- builder image - images setup compiling process, compiles sources and package it
+- builder image - image setup compiling process, compiles sources and package it
 
-When images are ready to work, script also starts builder container and copies compiled tensorflow
-into local filesystem. Finally script stops builder container.
+When images are ready to work, script also starts builder container
+and copies compiled tensorflow into local filesystem.
+Finally script stops builder container.
+
+If you want to **force building process** you can also run compilation
+by command:
+
+.. code-block:: bash
+
+    run.bat build
+
+When compilation process is done, you should see result file in
+output dir. For example for tensorflow 1.9 you can see compiled package:
+
+.. code-block:: bash
+
+    c:/tmp/output/ubuntu/
+
+
 
 .. _install from sources: https://www.tensorflow.org/install/install_sources
 .. _bazel: https://docs.bazel.build/
