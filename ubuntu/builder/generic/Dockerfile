@@ -3,7 +3,7 @@
 # FAQ:
 #  - I want to build image
 #       docker build -t tensorflow-builder-generic .
-#  - I want to run image with mapped local disk
+#  - I want to run image
 #       docker run -it tensorflow-builder-generic
 
 FROM tensorflow-sources

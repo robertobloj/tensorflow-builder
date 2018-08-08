@@ -6,10 +6,9 @@
 #  - I want to build image
 #       docker build --build-arg BAZEL_VER=0.15.1 -t tensorflow-bazel .
 #
-#  - I want to run image with mapped local disk
+#  - I want to run image
 #       docker run -it tensorflow-bazel
 
-# this version has glibc which is ok for jenkins
 FROM ubuntu:18.04
 MAINTAINER Robert Obloj <robloj@gmail.com>
 

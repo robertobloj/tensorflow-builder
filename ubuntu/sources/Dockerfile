@@ -1,9 +1,9 @@
-# This dockerfile allows to build tensorflow from sources
+# This dockerfile allows to download tensorflow from github
 #
 # FAQ:
 #  - I want to build image
 #       docker build --build-arg tensorflow_ver=r1.9 -t tensorflow-sources .
-#  - I want to run image with mapped local disk
+#  - I want to run image
 #       docker run -it tensorflow-sources
 
 FROM tensorflow-bazel
