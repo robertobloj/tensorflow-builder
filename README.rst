@@ -169,7 +169,8 @@ Another examples:
 
     # OR
 
-    # you architecture
+    # https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html
+    # check "-mtune=cpu-type" option
     CC_OPT_FLAGS=[your architecture]
 
 
@@ -217,6 +218,7 @@ we can build tensorflow from sources by running following command:
 
 .. code-block:: bash
 
+    cd ubuntu
     run.bat
 
 Script builds:
@@ -234,16 +236,15 @@ by command:
 
 .. code-block:: bash
 
+    cd ubuntu
     run.bat build
 
 When compilation process is done, you should see result file in
-output dir. For example for tensorflow 1.9 you can see compiled package:
+output dir. For example for tensorflow 1.9.0 you can see compiled package:
 
 .. code-block:: bash
 
-    c:/tmp/output/ubuntu/
-
-
+    c:\tmp\output\ubuntu\tensorflow_pkg\tensorflow-1.9.0-cp36-cp36m-linux_x86_64.whl
 
 .. _install from sources: https://www.tensorflow.org/install/install_sources
 .. _bazel: https://docs.bazel.build/

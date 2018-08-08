@@ -1,7 +1,7 @@
 @echo off
 
 set build=%1
-SET build_dir=c:/tmp/output/ubuntu
+SET build_dir=c:\temp\output\ubuntu
 
 if "%~1"=="build" (
     docker-compose up --build -d tensorflow-builder
