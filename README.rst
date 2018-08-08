@@ -1,9 +1,9 @@
 ===============================
-Install TensorFlow from Sources
+TensorFlow builder
 ===============================
 
 Tensorflow can be compiled directly from sources. Compiling from sources needs some time and knowledge,
-especially because if you need to compile tensorflow, you want to choose some extra flags for your requirements.
+especially because if you need to compile tensorflow, in general you want to choose some extra flags for your environment.
 These flags are very poorly documented on `install from sources`_ article.
 
 We prepared few docker images and docker-compose file which allows to compile tensorflow from sources for unix OS
@@ -11,7 +11,7 @@ with a little knowledge:
 
 1. bazel - image with bazel_ which is an open-source build and test tool similar to Make, Maven, and Gradle.
 2. sources - image with tensorflow_ sources downloaded from github_. Image depends on bazel image.
-3. builder - image allows to build tensorflow from sources. Image depends on sources images.
+3. builder - images allow to build tensorflow from sources. Images depend on sources images.
 
 **IMPORTANT:** These images don't support GPU compilation for now.
 
@@ -31,22 +31,93 @@ Example output:
     flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 \
             ss syscall nx lm constant_tsc rep_good nopl eagerfpu pni cx16 hypervisor lahf_lm
 
-Now you can check, what instructions you need to enable/disable in compiling process.
-Please also check `gcc compilation flags`_ and choose proper compilation options for gcc_.
+Now you can see, what instructions you need to enable/disable in compiling process.
 
-Let assume our server supports *MMX*, *SSE* and *SSE2* instructions. Given this we choose *pentium* as cpu type.
+What builder image do I need?
+----------------------------------
 
-Next step is setup our compilation process. Please edit *.env* file and change *CC_OPT_FLAGS* flag into:
+We provided two images for compiling process:
+
+- builder/generic - image produces code optimized for the most common IA32/AMD64/EM64T processors.
+- builder/arch - image allows you to decide what architecture you need
+
+If you want to build tensorflow optimized for most common CPUs,
+choose generic version. For this option you can go directly to `Generic CPU`_.
+
+If you checked `What tensorflow version do I need?`_ and you have chosen
+proper architecture, you can go to `Specified CPU architecture`_.
+
+Generic CPU
+---------------------------------------
+
+If you've chosen generic CPU version, you want to build the most common
+tensorflow package. It means you probably don't need to use
+modern instructions as SSE, AVX, etc.
+Another option is you want to decide excatly what instructions you want to
+enable and/or disable.
+
+Lets assume, you want to build the simplest tensorflow
+(without any extra instructions). Please open *docker-compose.yml* file,
+find *tensorflow-builder* section and change it:
 
 .. code-block:: bash
 
-    CC_OPT_FLAGS=-mtune=pentium4
+    tensorflow-builder:
+      image: tensorflow-builder
+      build:
+        context: ./
+        cache_from:
+          - tensorflow-builder
+        # Generic architecture for most processors
+        dockerfile: ./builder/generic/Dockerfile
+        # Please ensure you have commented another
+        # dockerfile entries for this image, for example:
+        # dockerfile: ./builder/arch/Dockerfile
 
-You can also change other values depends on your requirements. There are default values for tensorflow compiling
-process, so in general you don't need to change anything except *CC_OPT_FLAGS*.
+This configuration allows you to build the simplest version of tensorflow.
+
+Another option for generic compiling process is when you want to have all
+control what instructions of CPU you enable or disable.
+
+For that case also have to choose *dockerfile: ./builder/generic/Dockerfile* in
+*docker-compose.yml* file, but you have to edit *Dockerfile*:
+
+.. code-block:: bash
+
+    vi builder/generic/Dockerfile
+
+Take a while and decide what instructions you want to enable and disable.
+Lets assume we want to enable only *MMX*, *SSE* and *SSE2* instructions.
+We also want to be sure, we have disabled *AVX* instructions. Given this
+conditionals we can setup *builder/generic/Dockerfile*:
+
+.. code-block:: bash
+
+RUN python ./configure.py && \
+    bazel build \
+        --config=opt \
+        \
+        # decide what instructions you will enable, uncomment what needed
+        --copt=-mmmx \
+        --copt=-msse \
+        --copt=-msse2 \
+        \
+        # decide what instructions you will disable, uncomment what needed
+        --copt=-mno-avx \
+
+        ...
+
+For further investigation please also check `gcc compilation flags`_
+and choose proper compilation options for gcc_.
+
+Specified CPU architecture
+---------------------------------------
+
+
 
 Examples
 -----------------------------------------
+
 
 1. We want to build tensorflow with native architecture (building process uses compiling machine CPU for determining
 the processor type).
@@ -56,6 +127,7 @@ We can edit *.env* file and choose:
 .. code-block:: bash
 
     CC_OPT_FLAGS=-mtune=native
+
 
 2. We want to build tensorflow with Kafka support, but we don't need support for S3:
 
