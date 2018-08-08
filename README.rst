@@ -92,6 +92,8 @@ conditionals we can setup *builder/generic/Dockerfile*:
 
 .. code-block:: bash
 
+    ...
+
     RUN python ./configure.py && \
         bazel build \
             --config=opt \
@@ -109,23 +111,65 @@ conditionals we can setup *builder/generic/Dockerfile*:
 For further investigation please also check `gcc compilation flags`_
 and choose proper compilation options for chosen gcc_.
 
+**IMPORTANT** - in that case we ignore *CC_OPT_FLAGS* in *.env* file.
+
 Specified CPU architecture
 ---------------------------------------
 
+If you want to build specified architecture, edit *docker-compose.yml* file,
+find *tensorflow-builder* section and choose arch dockerfile:
 
+.. code-block:: bash
 
-Examples
------------------------------------------
+    tensorflow-builder:
+      image: tensorflow-builder
+      build:
+        context: ./
+        cache_from:
+          - tensorflow-builder
+        # Please ensure you have commented another
+        # dockerfile entries for this image, for example:
+        # dockerfile: ./builder/generic/Dockerfile
+        # Image for specified architecture
+        dockerfile: ./builder/arch/Dockerfile
 
+**IMPORTANT** - in this case you can't decide what
+extra instructions you want to enable or disable.
+It's only possible for `Generic CPU`_ mode.
 
-1. We want to build tensorflow with native architecture (building process uses compiling machine CPU for determining
+Next step is to edit *.env* file and set proper *CC_OPT_FLAGS* value.
+For example, lets assume we want to build tensorflow with native architecture
+(building process will use compiling machine CPU for determining
 the processor type).
-
-We can edit *.env* file and choose:
 
 .. code-block:: bash
 
     CC_OPT_FLAGS=-mtune=native
+
+Another examples:
+
+.. code-block:: bash
+
+    # Intel Core2 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3 and SSSE3 instruction set support.
+    CC_OPT_FLAGS=-mtune=core2
+
+    # OR
+
+    # Intel Atom CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3 and SSSE3 instruction set support.
+    CC_OPT_FLAGS=-mtune=atom
+
+    # OR
+
+    # Intel Pentium4 CPU with MMX, SSE and SSE2 instruction set support.
+    CC_OPT_FLAGS=-mtune=pentium4
+
+    # OR
+    CC_OPT_FLAGS=[your architecture]
+
+
+Advanced configuration
+-----------------------------------------
+
 
 
 2. We want to build tensorflow with Kafka support, but we don't need support for S3:
@@ -147,24 +191,6 @@ We can edit *.env* file and choose:
 .. code-block:: bash
 
     CC_OPT_FLAGS=-mtune=generic
-
-4. We want to build tensorflow for the most common IA32/AMD64/EM64T processors, but also want to enable/disable some specified instructions:
-
-We can edit *.env* file and setup *CC_OPT_FLAGS*:
-
-.. code-block:: bash
-
-    CC_OPT_FLAGS=-mtune=generic
-
-Additionally you can setup enablers and disablers for compilation process. For example we want
-to enable only MMX, SSE and SSE2 instructions. We also want to be sure AVX instructions are disabled.
-
-Again open *.env* file, edit *CC_OPT_ENABLE_FLAGS* and *CC_OPT_DISABLE_FLAGS* flags and define enablers and or disablers:
-
-.. code-block:: bash
-
-    CC_OPT_ENABLE_FLAGS=--copt=-mmmx --copt=-msse --copt=-msse2
-    CC_OPT_DISABLE_FLAGS=--copt=-mno-avx --copt=-mno-avx2
 
 
 How to compile tensorflow from sources?
