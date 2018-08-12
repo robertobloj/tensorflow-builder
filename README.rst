@@ -254,7 +254,6 @@ Now you can copy it to destination server and install:
   pip install tensorflow-1.9.0-cp36-cp36m-linux_x86_64.whl
 
 
-
 .. _install from sources: https://www.tensorflow.org/install/install_sources
 .. _bazel: https://docs.bazel.build/
 .. _tensorflow: https://www.tensorflow.org

@@ -28,9 +28,11 @@ services:
       cache_from:
         - tensorflow-builder
       # Generic architecture for most processors
-      dockerfile: ./builder/generic/Dockerfile
+      # dockerfile: ./builder/generic/Dockerfile
+      # Native architecture
+      dockerfile: ./builder/native/Dockerfile
       # Specified architecture
-      # dockerfile: ./builder/arch/Dockerfile
+      #dockerfile: ./builder/arch/Dockerfile
       args:
         - TF_NEED_JEMALLOC=$TF_NEED_JEMALLOC
         - TF_NEED_GCP=$TF_NEED_GCP
