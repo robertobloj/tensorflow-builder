@@ -1,10 +1,8 @@
 # TensorFlow Bazel
 
-## Info
-
 Image installs and configures [bazel build tool](https://docs.bazel.build/) for compiling [tensorflow](https://www.tensorflow.org) directly from sources.
 
-Image is prepared by instructions available on [bazel documentation web page] (https://docs.bazel.build/versions/master/install-ubuntu.html#install-with-installer-ubuntu).
+Image is prepared by instructions available on [bazel documentation web page](https://docs.bazel.build/versions/master/install-ubuntu.html#install-with-installer-ubuntu).
 
 Check more documentation on [github](https://github.com/robertobloj/tensorflow-builder).
 
