@@ -1,7 +1,7 @@
 # TensorFlow sources
 
 Image contains [tensorflow](https://www.tensorflow.org) sources downloaded from [github](https://github.com/tensorflow/tensorflow).
-.
+
 ## How to use image?
 
 By default you don't need to do anything except run image:

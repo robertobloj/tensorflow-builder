@@ -38,7 +38,7 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
 
 # 2. Finally we configure and compile tensorflow
 RUN python ./configure.py && \
-    bazel build --config=opt \ 
+    bazel build  \
       $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
 CMD /bin/bash

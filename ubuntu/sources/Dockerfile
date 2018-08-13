@@ -1,12 +1,4 @@
-# This dockerfile allows to download tensorflow from github
-#
-# FAQ:
-#  - I want to build image
-#       docker build --build-arg tensorflow_ver=r1.9 -t tensorflow-sources .
-#  - I want to run image
-#       docker run -it tensorflow-sources
-
-FROM tensorflow-bazel
+FROM robloj/ubuntu-tensorflow-bazel
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
 ARG TF_VERSION='r1.9'

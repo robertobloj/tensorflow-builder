@@ -1,14 +1,3 @@
-# This dockerfile allows to build image with bazel.
-# Image is prepared by following instructions from:
-# https://docs.bazel.build/versions/master/install-ubuntu.html#install-with-installer-ubuntu
-#
-# FAQ:
-#  - I want to build image
-#       docker build --build-arg BAZEL_VER=0.15.1 -t tensorflow-bazel .
-#
-#  - I want to run image
-#       docker run -it tensorflow-bazel
-
 FROM ubuntu:18.04
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
