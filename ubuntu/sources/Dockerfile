@@ -1,7 +1,7 @@
 FROM robloj/ubuntu-tensorflow-bazel
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-ARG TF_VERSION='r1.9'
+ARG TF_VERSION='r1.10'
 
 ENV tensorflow_name tensorflow-$TF_VERSION
 ENV tensorflow_zip https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip
