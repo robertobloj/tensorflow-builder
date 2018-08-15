@@ -3,7 +3,7 @@
 Image contains [tensorflow](https://www.tensorflow.org) compiled
 from sources with *native mode*. Read more about *native mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
-__IMPORTANT__ Native architecture means image contains native tensorflow for machine,
+__IMPORTANT:__ Native architecture means image contains native tensorflow for machine,
 where image was built. So you can use tensorflow from this image, but your
 architecture can be completely different. Be aware of that!
 
@@ -42,7 +42,6 @@ docker ps
 Example result:
 
 ```
-c:\data\documents\robert\tensorflowgit\tensorflow-builder>docker ps
 CONTAINER ID   IMAGE                    COMMAND      CREATED        STATUS       PORTS  NAMES
 b4fef7c3adfd   ubuntu-tensorflow-native "/bin/bash"  5 seconds ago  Up 4 seconds        tf2copy
 ```
@@ -70,3 +69,5 @@ ls $DEST_DIR
 
 tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 ```
+
+Congratulation! You have wheel package and you can easily install it via *pip*.

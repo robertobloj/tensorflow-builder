@@ -19,14 +19,15 @@ When image is downloaded, you can check if bazel exists:
 ```
 root@39f0849fe655:/# bazel version
 
-WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server
-using the command "bazel shutdown".
+WARNING: --batch mode is deprecated. Please instead explicitly shut down
+your Bazel server using the command "bazel shutdown".
 Build label: 0.15.1
-Build target: bazel-out/k8-opt/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
+Build target: bazel-out/k8-opt/bin/...build/lib/bazel/BazelServer_deploy.jar
 Build time: Mon Jul 16 14:16:24 2018 (1531750584)
 Build timestamp: 1531750584
 Build timestamp as int: 1531750584
 ```
+
 
 That's all. Now you can use bazel.
 
@@ -37,7 +38,9 @@ versions. For example:
 
 ```
 docker build --build-arg BAZEL_VER=0.15.1 --build-arg GCC_VER=4.8 -t my-tensorflow-bazel .
+
 ```
+
 
 Where:
 
