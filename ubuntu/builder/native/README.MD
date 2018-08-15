@@ -3,6 +3,24 @@
 Image contains [tensorflow](https://www.tensorflow.org) compiled
 from sources with *native mode*. Read more about *native mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
+_IMPORTANT_ Native architecture means image contains native tensorflow for machine,
+where image was built. So you can use tensorflow from this image, but your
+architecture can be completely different. Be aware of that!
+
+## How to compile my own tensorflow native package?
+
+If you want to build tensorflow with your cpu architecture,
+you have to run following command:
+
+```
+docker build -t my-tensorflow-native .
+```
+
+Notice that compilation process is very long and can take even _few hours_!
+
+When compilation will finish, you have to use image to copy compiled tensorflow
+into your local filesystem.
+
 ## How to use image?
 
 You have to do three steps:
@@ -13,7 +31,7 @@ You have to do three steps:
 docker run --name tf2copy -d -it robloj/ubuntu-tensorflow-native
 ```
 
-Notice, we run named container with name *tf2copy*
+Notice, we run named container with name *tf2copy*.
 
 ### 2. Find container id
 
@@ -25,8 +43,8 @@ Example result:
 
 ```
 c:\data\documents\robert\tensorflowgit\tensorflow-builder>docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS            PORTS          NAMES
-b4fef7c3adfd        centos              "/bin/bash"         5 seconds ago        Up 4 seconds                     tf2copy
+CONTAINER ID   IMAGE                    COMMAND      CREATED        STATUS       PORTS  NAMES
+b4fef7c3adfd   ubuntu-tensorflow-native "/bin/bash"  5 seconds ago  Up 4 seconds        tf2copy
 ```
 
 Your container id is *b4fef7c3adfd*
@@ -34,21 +52,21 @@ Your container id is *b4fef7c3adfd*
 ### 3. Copy tensorflow wheel into your local filesystem
 
 ```
-docker cp $CONTAINER_ID:/tmp/tensorflow_pkg $BUILD_DIR
+CONTAINER_ID=b4fef7c3adfd
+DEST_DIR=/tmp/output
+
+docker cp $CONTAINER_ID:/tmp/tensorflow_pkg $DEST_DIR
 ```
 
 Where:
 
 - $CONTAINER_ID - id copied from step 2
-- $BUILD_DIR - destination directory for compiled tensorflow
+- $DEST_DIR - destination directory for compiled tensorflow
 
-## How to build my own tensorflow sources image?
-
-If you want to build tensorflow with your cpu architecture,
-you have to run following command:
+As result you should have compiled tensorflow in your destination dir:
 
 ```
-docker build -t my-tensorflow-native .
-```
+ls $DEST_DIR
 
-Notice that compilation process is long and can take even few hours!
+tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
+```
