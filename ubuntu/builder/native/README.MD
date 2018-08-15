@@ -7,65 +7,48 @@ from sources with native mode. Read more about native mode [here](https://gcc.gn
 
 You have to do three steps:
 
-1. Run image
-2. Find container id
-3. Copy tensorflow wheel into your local filesystem
-
-### Run image
+### 1. Run image
 
 ```
-docker run -it robloj/ubuntu-tensorflow-native
+docker run --name tf2copy -d -it robloj/ubuntu-tensorflow-native
 ```
 
-When image is downloaded, you can check if sources exist:
+Notice, we run named container with name *tf2copy*
+
+### 2. Find container id
 
 ```
-root@874c71f92f04:/# ls -la / | grep tensorflow
-drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.9
+docker ps
 ```
 
-In example above we have downloaded 1.9.0 version.
-By default directory where we extracted tensorflow sources is a working directory.
-
-Lets check what is inside working dir:
+Example result:
 
 ```
-root@874c71f92f04:/tensorflow-r1.9# ls -la
-total 288
-drwxr-xr-x  5 root root   4096 Jul  9 20:38 .
-drwxr-xr-x  1 root root   4096 Aug 12 07:14 ..
--rw-r--r--  1 root root    653 Jul  9 20:38 .gitignore
--rw-r--r--  1 root root   2219 Jul  9 20:38 ACKNOWLEDGMENTS
--rw-r--r--  1 root root    542 Jul  9 20:38 ADOPTERS.md
--rw-r--r--  1 root root    349 Jul  9 20:38 AUTHORS
--rw-r--r--  1 root root     77 Jul  9 20:38 BUILD
--rw-r--r--  1 root root   2490 Jul  9 20:38 CODEOWNERS
--rw-r--r--  1 root root   5310 Jul  9 20:38 CODE_OF_CONDUCT.md
--rw-r--r--  1 root root   9041 Jul  9 20:38 CONTRIBUTING.md
--rw-r--r--  1 root root   2056 Jul  9 20:38 ISSUE_TEMPLATE.md
--rw-r--r--  1 root root  11416 Jul  9 20:38 LICENSE
--rw-r--r--  1 root root   6063 Jul  9 20:38 README.md
--rw-r--r--  1 root root 108770 Jul  9 20:38 RELEASE.md
--rw-r--r--  1 root root  13963 Jul  9 20:38 SECURITY.md
--rw-r--r--  1 root root   3610 Jul  9 20:38 WORKSPACE
--rw-r--r--  1 root root   1186 Jul  9 20:38 arm_compiler.BUILD
--rwxr-xr-x  1 root root    285 Jul  9 20:38 configure
--rw-r--r--  1 root root  58495 Jul  9 20:38 configure.py
--rw-r--r--  1 root root    328 Jul  9 20:38 models.BUILD
-drwxr-xr-x 16 root root   4096 Jul  9 20:38 tensorflow
-drwxr-xr-x 26 root root   4096 Jul  9 20:38 third_party
-drwxr-xr-x  2 root root   4096 Jul  9 20:38 tools
+c:\data\documents\robert\tensorflowgit\tensorflow-builder>docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS            PORTS          NAMES
+b4fef7c3adfd        centos              "/bin/bash"         5 seconds ago        Up 4 seconds                            tf2copy
 ```
 
-## How to build my own tensorflow sources image?
+Your container id is *b4fef7c3adfd*
 
-If you want to build your own tensorflow sources image, you have to provide tensorflow
-version. For example:
+### 3. Copy tensorflow wheel into your local filesystem
 
 ```
-docker build --build-arg TF_VERSION=1.10.0 -t my-tensorflow-sources .
+docker cp $CONTAINER_ID:/tmp/tensorflow_pkg $BUILD_DIR
 ```
 
 Where:
 
-- TF_VERSION - [TensorFlow](https://github.com/tensorflow/tensorflow) version you want to use
+- $CONTAINER_ID - id copied from step 2
+- $BUILD_DIR - destination directory for compiled tensorflow
+
+## How to build my own tensorflow sources image?
+
+If you want to build tensorflow with your cpu architecture,
+you have to run following command:
+
+```
+docker build -t my-tensorflow-native .
+```
+
+Notice that compilation process is long and can take even few hours!
