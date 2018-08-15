@@ -4,14 +4,14 @@ set build=%1
 SET build_dir=c:\temp\output\ubuntu
 
 if "%~1"=="build" (
-    docker-compose up --build -d tensorflow-builder
+    docker-compose up --build -d ubuntu-tensorflow-builder
     echo "Builder up with build option"
 ) else (
-    docker-compose up -d tensorflow-builder
+    docker-compose up -d ubuntu-tensorflow-builder
     echo "Builder up"
 )
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`docker-compose ps -q tensorflow-builder`) DO (
+FOR /F "tokens=* USEBACKQ" %%F IN (`docker-compose ps -q ubuntu-tensorflow-builder`) DO (
     SET container_id=%%F
 )
 

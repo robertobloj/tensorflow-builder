@@ -1,36 +1,36 @@
 version: "3.6"
 services:
-  tensorflow-bazel:
-    image: tensorflow-bazel
+  ubuntu-tensorflow-bazel:
+    image: ubuntu-tensorflow-bazel
     build:
       context: ./
       cache_from:
-        - tensorflow-bazel
+        - ubuntu-tensorflow-bazel
       dockerfile: ./bazel/Dockerfile
       args:
         - BAZEL_VER=$BAZEL_VERSION
         - GCC_VER=$GCC_VERSION
-  tensorflow-sources:
-    image: tensorflow-sources
+  ubuntu-tensorflow-sources:
+    image: ubuntu-tensorflow-sources
     build:
       context: ./
       cache_from:
-        - tensorflow-sources
+        - ubuntu-tensorflow-sources
       dockerfile: ./sources/Dockerfile
       args:
         - TF_VERSION=$TF_VERSION
     depends_on:
-        - tensorflow-bazel
-  tensorflow-builder:
-    image: tensorflow-builder
+        - ubuntu-tensorflow-bazel
+  ubuntu-tensorflow-builder:
+    image: ubuntu-tensorflow-builder
     build:
       context: ./
       cache_from:
-        - tensorflow-builder
+        - ubuntu-tensorflow-builder
       # Generic architecture for most processors
-      # dockerfile: ./builder/generic/Dockerfile
+      dockerfile: ./builder/generic/Dockerfile
       # Native architecture
-      dockerfile: ./builder/native/Dockerfile
+      # dockerfile: ./builder/native/Dockerfile
       # Specified architecture
       #dockerfile: ./builder/arch/Dockerfile
       args:
@@ -49,4 +49,4 @@ services:
         - TF_SET_ANDROID_WORKSPACE=$TF_SET_ANDROID_WORKSPACE
         - CC_OPT_FLAGS=$CC_OPT_FLAGS
     depends_on:
-        - tensorflow-sources
+        - ubuntu-tensorflow-sources
