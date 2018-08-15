@@ -38,7 +38,6 @@ versions. For example:
 
 ```
 docker build --build-arg BAZEL_VER=0.15.1 --build-arg GCC_VER=4.8 -t my-tensorflow-bazel .
-
 ```
 
 

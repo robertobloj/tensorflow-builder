@@ -2,27 +2,27 @@
 #
 # FAQ:
 #  - I want to build image
-#       docker build -t tensorflow-builder-generic .
+#       docker build -t ubuntu-tensorflow-generic .
 #  - I want to run image
-#       docker run -it tensorflow-builder-generic
+#       docker run -it ubuntu-tensorflow-generic
 
-FROM tensorflow-sources
+FROM robloj/ubuntu-tensorflow-sources
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-# variables from .env
-ARG TF_NEED_JEMALLOC
-ARG TF_NEED_GCP
-ARG TF_NEED_HDFS
-ARG TF_NEED_S3
-ARG TF_NEED_KAFKA
-ARG TF_ENABLE_XLA
-ARG TF_NEED_GDR
-ARG TF_NEED_VERBS
-ARG TF_NEED_MPI
-ARG TF_NEED_OPENCL_SYCL
-ARG TF_NEED_CUDA
-ARG TF_DOWNLOAD_CLANG
-ARG TF_SET_ANDROID_WORKSPACE
+# variables for configure.py script
+ARG TF_NEED_JEMALLOC=1
+ARG TF_NEED_GCP=1
+ARG TF_NEED_HDFS=1
+ARG TF_NEED_S3=1
+ARG TF_NEED_KAFKA=1
+ARG TF_ENABLE_XLA=0
+ARG TF_NEED_GDR=0
+ARG TF_NEED_VERBS=0
+ARG TF_NEED_MPI=0
+ARG TF_NEED_OPENCL_SYCL=0
+ARG TF_NEED_CUDA=0
+ARG TF_DOWNLOAD_CLANG=0
+ARG TF_SET_ANDROID_WORKSPACE=0
 
 # we ignore on purpose CC_OPT_FLAGS value in .env file,
 # we want to build generic architecture here
@@ -38,6 +38,8 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
 
 # 2. Finally we configure and compile tensorflow
 RUN python ./configure.py && \
+    # somehow we still have -march=native in host_opts, we remove it
+    sed -i '/build:opt --host_copt=-march=native/d' ./.tf_configure.bazelrc && \
     bazel build \
         --config=opt \
         \

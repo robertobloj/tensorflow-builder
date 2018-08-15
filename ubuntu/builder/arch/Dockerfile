@@ -2,27 +2,27 @@
 #
 # FAQ:
 #  - I want to build image
-#       docker build -t tensorflow-builder-arch .
+#       docker build -t ubuntu-tensorflow-arch .
 #  - I want to run image
-#       docker run -it tensorflow-builder-arch
+#       docker run -it ubuntu-tensorflow-arch
 
-FROM tensorflow-sources
+FROM robloj/ubuntu-tensorflow-sources
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-# variables from .env
-ARG TF_NEED_JEMALLOC
-ARG TF_NEED_GCP
-ARG TF_NEED_HDFS
-ARG TF_NEED_S3
-ARG TF_NEED_KAFKA
-ARG TF_ENABLE_XLA
-ARG TF_NEED_GDR
-ARG TF_NEED_VERBS
-ARG TF_NEED_MPI
-ARG TF_NEED_OPENCL_SYCL
-ARG TF_NEED_CUDA
-ARG TF_DOWNLOAD_CLANG
-ARG TF_SET_ANDROID_WORKSPACE
+# variables for configure.py script
+ARG TF_NEED_JEMALLOC=1
+ARG TF_NEED_GCP=1
+ARG TF_NEED_HDFS=1
+ARG TF_NEED_S3=1
+ARG TF_NEED_KAFKA=1
+ARG TF_ENABLE_XLA=0
+ARG TF_NEED_GDR=0
+ARG TF_NEED_VERBS=0
+ARG TF_NEED_MPI=0
+ARG TF_NEED_OPENCL_SYCL=0
+ARG TF_NEED_CUDA=0
+ARG TF_DOWNLOAD_CLANG=0
+ARG TF_SET_ANDROID_WORKSPACE=0
 ARG CC_OPT_FLAGS
 
 ENV PYTHON_BIN_PATH /usr/bin/python
@@ -35,7 +35,8 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
     export abi_switch="--cxxopt='-D_GLIBCXX_USE_CXX11_ABI=0'"; fi
 
 # 2. Finally we configure and compile tensorflow
-RUN python ./configure.py && \
-    bazel build --config=opt $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
-    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+RUN python ./configure.py
+  # && \
+    # bazel build --config=opt $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
+    # bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
 CMD /bin/bash
