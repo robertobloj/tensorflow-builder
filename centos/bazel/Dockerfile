@@ -11,7 +11,7 @@ ENV ius_rpm https://centos7.iuscommunity.org/ius-release.rpm
 
 # 1. install required packages
 RUN echo timeout=200 >> /etc/yum.conf
-RUN yum update && yum install -y zip \
+RUN yum update -y && yum install -y zip \
     unzip \
     wget \
     yum-utils \
