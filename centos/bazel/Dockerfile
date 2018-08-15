@@ -10,6 +10,7 @@ ENV devtools_installer_file /etc/yum.repos.d/slc6-devtoolset.repo
 ENV ius_rpm https://centos7.iuscommunity.org/ius-release.rpm
 
 # 1. install required packages
+RUN echo timeout=200 >> /etc/yum.conf
 RUN yum update && yum install -y zip \
     unzip \
     wget \
