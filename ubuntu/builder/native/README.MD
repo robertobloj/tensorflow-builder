@@ -3,7 +3,7 @@
 Image contains [tensorflow](https://www.tensorflow.org) compiled
 from sources with *native mode*. Read more about *native mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
-_IMPORTANT_ Native architecture means image contains native tensorflow for machine,
+__IMPORTANT__ Native architecture means image contains native tensorflow for machine,
 where image was built. So you can use tensorflow from this image, but your
 architecture can be completely different. Be aware of that!
 
@@ -16,7 +16,7 @@ you have to run following command:
 docker build -t my-tensorflow-native .
 ```
 
-Notice that compilation process is very long and can take even _few hours_!
+Notice that compilation process is very long and can take even __few hours__!
 
 When compilation will finish, you have to use image to copy compiled tensorflow
 into your local filesystem.
