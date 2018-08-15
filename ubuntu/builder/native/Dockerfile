@@ -2,11 +2,11 @@
 #
 # FAQ:
 #  - I want to build image
-#       docker build -t tensorflow-builder-native .
+#       docker build -t ubuntu-tensorflow-native .
 #  - I want to run image
-#       docker run -it tensorflow-builder-native
+#       docker run -it ubuntu-tensorflow-native
 
-FROM tensorflow-sources
+FROM robloj/ubuntu-tensorflow-sources
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
 # variables from .env
