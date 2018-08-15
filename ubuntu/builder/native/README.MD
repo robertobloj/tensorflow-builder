@@ -1,7 +1,7 @@
 # TensorFlow native binary
 
 Image contains [tensorflow](https://www.tensorflow.org) compiled
-from sources with native mode. Read more about native mode [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
+from sources with *native mode*. Read more about *native mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
 ## How to use image?
 
@@ -26,7 +26,7 @@ Example result:
 ```
 c:\data\documents\robert\tensorflowgit\tensorflow-builder>docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS            PORTS          NAMES
-b4fef7c3adfd        centos              "/bin/bash"         5 seconds ago        Up 4 seconds                            tf2copy
+b4fef7c3adfd        centos              "/bin/bash"         5 seconds ago        Up 4 seconds                     tf2copy
 ```
 
 Your container id is *b4fef7c3adfd*
