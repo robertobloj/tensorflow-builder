@@ -34,9 +34,11 @@ ENV CURRENT_GCC_VER="$(gcc -dumpversion)"
 RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head -n1)" = "$USE_ABI_SWITCH" ]; then \
     export abi_switch="--cxxopt='-D_GLIBCXX_USE_CXX11_ABI=0'"; fi
 
-# 2. Finally we configure and compile tensorflow
-RUN python ./configure.py && \
-    bazel build --config=opt \
+# 2. We configure tensorflow
+RUN python ./configure.py
+
+# 3. We compile tensorflow and do "sleep infinity", because you want to copy
+# tensorflow wheel into local filesystem
+CMD bazel build --config=opt \
       $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
-    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
-CMD /bin/bash
+    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg; sleep infinity

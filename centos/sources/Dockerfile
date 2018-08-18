@@ -1,4 +1,4 @@
-FROM centos-tensorflow-bazel
+FROM robloj/centos-tensorflow-bazel
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
 ARG TF_VERSION='r1.10'
