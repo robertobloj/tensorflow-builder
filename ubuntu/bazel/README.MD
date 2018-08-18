@@ -14,6 +14,7 @@ By default you don't need to do anything except run image:
 docker run -it robloj/ubuntu-tensorflow-bazel
 ```
 
+
 When image is downloaded, you can check if bazel exists:
 
 ```
