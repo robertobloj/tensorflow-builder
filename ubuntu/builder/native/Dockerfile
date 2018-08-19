@@ -1,11 +1,3 @@
-# This dockerfile allows to build tensorflow from sources
-#
-# FAQ:
-#  - I want to build image
-#       docker build -t ubuntu-tensorflow-native .
-#  - I want to run image
-#       docker run -it ubuntu-tensorflow-native
-
 FROM robloj/ubuntu-tensorflow-sources
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
