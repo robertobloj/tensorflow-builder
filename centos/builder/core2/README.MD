@@ -1,4 +1,4 @@
-# TensorFlow native binary
+# TensorFlow core2 binary
 
 Image allows to compile [tensorflow](https://www.tensorflow.org)
 from sources with *core2 mode*. Read more about *core2 mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
