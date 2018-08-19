@@ -1,4 +1,4 @@
-# TensorFlow native binary
+# TensorFlow generic binary
 
 Image allows to compile [tensorflow](https://www.tensorflow.org)
 from sources with *generic mode*. Read more about *generic mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).

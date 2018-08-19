@@ -1,4 +1,4 @@
-# TensorFlow native binary
+# TensorFlow pentium4 binary
 
 Image allows to compile [tensorflow](https://www.tensorflow.org)
 from sources with *pentium4 mode*. Read more about *pentium4 mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
