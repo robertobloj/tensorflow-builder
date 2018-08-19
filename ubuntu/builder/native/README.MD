@@ -16,29 +16,59 @@ When compilation will finish, you have to use image to copy compiled tensorflow
 into your local filesystem.
 
 
-For compilation process you have to do three steps:
+For compilation process you have to do steps:
 
 ### 1. Run image
 
 ```
-docker run --name tf2copy -d -it robloj/ubuntu-tensorflow-native
+docker run --name tf2copy -it robloj/ubuntu-tensorflow-native
 ```
 
 
 Notice, we run named container with name *tf2copy*.
 
+Wait until compilation process is done. You should see logs similar to:
+
+
+```
+...
+
+bazel-out/k8-opt/genfiles/external/protobuf_archive/src: warning: directory does not exist.
+Target //tensorflow/tools/pip_package:build_pip_package up-to-date:
+  bazel-bin/tensorflow/tools/pip_package/build_pip_package
+INFO: Elapsed time: 9026.270s, Critical Path: 95.38s
+INFO: 6801 processes: 6801 local.
+INFO: Build completed successfully, 7502 total actions
+Sun Aug 19 09:23:50 UTC 2018 : === Preparing sources in dir: /tmp/tmp.jbIBSPuSwb
+/tensorflow-r1.10 /tensorflow-r1.10
+/tensorflow-r1.10
+Sun Aug 19 09:24:02 UTC 2018 : === Building wheel
+warning: no files found matching '*.dll' under directory '*'
+warning: no files found matching '*.lib' under directory '*'
+warning: no files found matching '*.h' under directory 'tensorflow/include/tensorflow'
+warning: no files found matching '*' under directory 'tensorflow/include/Eigen'
+warning: no files found matching '*.h' under directory 'tensorflow/include/google'
+warning: no files found matching '*' under directory 'tensorflow/include/third_party'
+warning: no files found matching '*' under directory 'tensorflow/include/unsupported'
+Sun Aug 19 09:24:21 UTC 2018 : === Output wheel file is in: /tmp/tensorflow_pkg
+```
+
 ### 2. Find container id
+
+Open new terminal and type:
 
 ```
 docker ps
+
 ```
 
 
 Example result:
 
 ```
-CONTAINER ID   IMAGE                    COMMAND      CREATED        STATUS       PORTS  NAMES
-b4fef7c3adfd   ubuntu-tensorflow-native "bazel ..."  5 seconds ago  Up 4 seconds        tf2copy
+CONTAINER ID   IMAGE                    COMMAND       CREATED        STATUS       PORTS  NAMES
+b4fef7c3adfd   ubuntu-tensorflow-native "/bin/sh..."  5 seconds ago  Up 4 seconds        tf2copy
+
 ```
 
 
@@ -46,11 +76,15 @@ Your container id is *b4fef7c3adfd*
 
 ### 3. Copy tensorflow wheel into your local filesystem
 
+Finally you can copy tensorflow wheel:
+
 ```
+
 CONTAINER_ID=b4fef7c3adfd
 DEST_DIR=/tmp/output
 
 docker cp $CONTAINER_ID:/tmp/tensorflow_pkg $DEST_DIR
+
 ```
 
 

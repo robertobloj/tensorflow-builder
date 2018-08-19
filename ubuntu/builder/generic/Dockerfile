@@ -1,11 +1,3 @@
-# This dockerfile allows to build tensorflow from sources
-#
-# FAQ:
-#  - I want to build image
-#       docker build -t ubuntu-tensorflow-generic .
-#  - I want to run image
-#       docker run -it ubuntu-tensorflow-generic
-
 FROM robloj/ubuntu-tensorflow-sources
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
@@ -37,54 +29,13 @@ ENV CURRENT_GCC_VER="$(gcc -dumpversion)"
 RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head -n1)" = "$USE_ABI_SWITCH" ]; then \
     export abi_switch="--cxxopt='-D_GLIBCXX_USE_CXX11_ABI=0'"; fi
 
-# 2. Finally we configure and compile tensorflow
+# 2. We configure tensorflow
 RUN python ./configure.py && \
     # somehow we still have -march=native in host_opts, we remove it
     sed -i '/build:opt --host_copt=-march=native/d' ./.tf_configure.bazelrc && \
-    bazel build \
-        --config=opt \
-        \
-        # when you build with CC_OPT_FLAGS=-mtune=generic, you can enable or disable gcc options
-        # enablers
-        # --copt=-mmmx \
-        # --copt=-msse \
-        # --copt=-msse2 \
-        # --copt=-msse3 \
-        # --copt=-mssse3 \
-        # --copt=-msse4.1 \
-        # --copt=-msse4.2 \
-        # --copt=-msse4 \
-        # --copt=-mavx \
-        # --copt=-maes \
-        # --copt=-mpclmul \
-        # --copt=-msse4a \
-        # --copt=-mfma4 \
-        # --copt=-mxop \
-        # --copt=-mlwp \
-        # --copt=-m3dnow \
-        # --copt=-mpopcnt \
-        # --copt=-mabm \
-        \
-        # disablers
-        # --copt=-mno-mmx \
-        # --copt=-mno-sse \
-        # --copt=-mno-sse2 \
-        # --copt=-mno-sse3 \
-        # --copt=-mno-ssse3 \
-        # --copt=-mno-sse4.1 \
-        # --copt=-mno-sse4.2 \
-        # --copt=-mno-sse4 \
-        # --copt=-mno-avx \
-        # --copt=-mno-aes \
-        # --copt=-mno-pclmul \
-        # --copt=-mno-sse4a \
-        # --copt=-mno-fma4 \
-        # --copt=-mno-xop \
-        # --copt=-mno-lwp \
-        # --copt=-mno-3dnow \
-        # --copt=-mno-popcnt \
-        # --copt=-mno-abm \
-        \
-        $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
-    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
-CMD /bin/bash
+
+# 3. We compile tensorflow and do "sleep infinity", because you want to copy
+# tensorflow wheel into local filesystem
+CMD bazel build --config=opt \
+      $abi_switch //tensorflow/tools/pip_package:build_pip_package 2>&1 && \
+    bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg; sleep infinity
