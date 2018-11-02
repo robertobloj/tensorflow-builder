@@ -1,4 +1,4 @@
-FROM robloj/centos-tensorflow-sources
+FROM robloj/tensorflow-sources
 MAINTAINER Robert Obloj <robert.obloj@ingbank.pl>
 
 # variables for configure.py script

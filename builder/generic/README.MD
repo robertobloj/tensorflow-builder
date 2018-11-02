@@ -25,7 +25,7 @@ For compilation process you have to do steps:
 ### 1. Run image
 
 ```
-docker run --name tf2copy -it robloj/centos-tensorflow-generic
+docker run --name tf2copy -it robloj/tensorflow-generic
 ```
 
 
