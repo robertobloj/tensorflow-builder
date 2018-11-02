@@ -42,22 +42,25 @@ What builder image do I need?
 
 We provided following images for compiling process:
 
-- builder/core2 - image compiles tensorflow optimized for Intel Core2 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3 and SSSE3 instruction set support.
-- builder/generic - image compiles tensorflow optimized for the most common *IA32/AMD64/EM64T* processors.
-- builder/native - image compiles tensorflow optimized for the local machine under the constraints of the selected instruction set
-- builder/pentium4 - image compiles tensorflow optimized for Intel Pentium4 CPU with *MMX*, *SSE* and *SSE2* instruction set support.
+- *builder/core2* - image compiles tensorflow optimized for Intel Core2 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3 and SSSE3 instruction set support.
+- *builder/generic* - image compiles tensorflow optimized for the most common *IA32/AMD64/EM64T* processors.
+- *builder/native* - image compiles tensorflow optimized for the local machine under the constraints of the selected instruction set
+- *builder/pentium4* - image compiles tensorflow optimized for Intel Pentium4 CPU with *MMX*, *SSE* and *SSE2* instruction set support.
 
 You can also easily build your own Dockerfile based on examples above.
 
 How to use it?
 -----------------------------------
 
-The simplest way is to run chosen docker image.
-For example, lets assume we've chosen generic image:
+The simplest way is to run chosen docker image. Depends what you have chosen,
+run ONLY one of following commands:
 
 .. code-block:: bash
 
+    docker run --name tf-core2 -it robloj/tensorflow-core2
     docker run --name tf-generic -it robloj/tensorflow-generic
+    docker run --name tf-native -it robloj/tensorflow-native
+    docker run --name tf-pentium4 -it robloj/tensorflow-pentium4
 
 This command starts compilation process which takes some time depends
 on your environment.
@@ -115,7 +118,7 @@ Finally you can copy tensorflow wheel into your local filesystem:
 
 Where:
 
-- $CONTAINER_ID - id copied from `docker ps` command
+- $CONTAINER_ID - container id found by command above
 - $DEST_DIR - destination directory for compiled tensorflow
 
 As result you should have compiled tensorflow in your destination dir:
