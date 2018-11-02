@@ -46,7 +46,10 @@ We provided following images for compiling process:
 
 You can also easily build your own Dockerfile based on examples above.
 
+How to use it?
+-----------------------------------
 
+TODO
 
 .. _install from sources: https://www.tensorflow.org/install/install_sources
 .. _bazel: https://docs.bazel.build/

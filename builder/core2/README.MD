@@ -21,7 +21,7 @@ For compilation process you have to do steps:
 ### 1. Run image
 
 ```
-docker run --name tf2copy -it robloj/centos-tensorflow-core2
+docker run --name tf2copy -it robloj/tensorflow-core2
 ```
 
 
@@ -103,3 +103,7 @@ tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 
 
 Congratulation! You have wheel package and you can easily install it via *pip*.
+
+```
+pip install tensorflow-1.9.0-cp36-cp36m-linux_x86_64.whl
+```

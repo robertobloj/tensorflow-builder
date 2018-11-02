@@ -9,7 +9,7 @@ Check more documentation on [github](https://github.com/robertobloj/tensorflow-b
 By default you don't need to do anything except run image:
 
 ```
-docker run -it robloj/centos-tensorflow-bazel
+docker run -it robloj/tensorflow-bazel
 ```
 
 When image is downloaded, you can check if bazel exists:

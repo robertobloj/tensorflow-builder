@@ -7,7 +7,7 @@ Image contains [tensorflow](https://www.tensorflow.org) sources downloaded from 
 By default you don't need to do anything except run image:
 
 ```
-docker run -it robloj/centos-tensorflow-sources
+docker run -it robloj/tensorflow-sources
 ```
 
 When image is downloaded, you can check if sources exist:
