@@ -34,6 +34,9 @@ Example output:
 
 Now you can see, what instructions you need to enable/disable in compiling process.
 
+For further investigation please also check `gcc compilation flags`_
+and choose proper compilation options for chosen gcc_.
+
 What builder image do I need?
 ----------------------------------
 
@@ -49,7 +52,89 @@ You can also easily build your own Dockerfile based on examples above.
 How to use it?
 -----------------------------------
 
-TODO
+The simplest way is to run chosen docker image.
+For example, lets assume we've chosen generic image:
+
+.. code-block:: bash
+
+    docker run --name tf-generic -it robloj/tensorflow-generic
+
+This command starts compilation process which takes some time depends
+on your environment.
+
+**IMPORTANT** - Notice that compilation process is very long and can take even **few hours**!
+
+Wait until compilation process is done. You should see logs similar to:
+
+.. code-block:: bash
+
+  ...
+
+  bazel-out/k8-opt/genfiles/external/protobuf_archive/src: warning: directory does not exist.
+  Target //tensorflow/tools/pip_package:build_pip_package up-to-date:
+    bazel-bin/tensorflow/tools/pip_package/build_pip_package
+  INFO: Elapsed time: 9026.270s, Critical Path: 95.38s
+  INFO: 6801 processes: 6801 local.
+  INFO: Build completed successfully, 7502 total actions
+  Sun Aug 19 09:23:50 UTC 2018 : === Preparing sources in dir: /tmp/tmp.jbIBSPuSwb
+  /tensorflow-r1.11 /tensorflow-r1.11
+  /tensorflow-r1.11
+  Sun Aug 19 09:24:02 UTC 2018 : === Building wheel
+  warning: no files found matching '*.dll' under directory '*'
+  warning: no files found matching '*.lib' under directory '*'
+  warning: no files found matching '*.h' under directory 'tensorflow/include/tensorflow'
+  warning: no files found matching '*' under directory 'tensorflow/include/Eigen'
+  warning: no files found matching '*.h' under directory 'tensorflow/include/google'
+  warning: no files found matching '*' under directory 'tensorflow/include/third_party'
+  warning: no files found matching '*' under directory 'tensorflow/include/unsupported'
+  Sun Aug 19 09:24:21 UTC 2018 : === Output wheel file is in: /tmp/tensorflow_pkg
+
+Find container id:
+
+.. code-block:: bash
+
+  docker ps
+
+Example result:
+
+.. code-block:: bash
+
+  CONTAINER ID   IMAGE               COMMAND       CREATED        STATUS       PORTS  NAMES
+  b4fef7c3adfd   tensorflow-generic  "/bin/sh..."  5 seconds ago  Up 4 seconds        tf-generic
+
+Your container id is *b4fef7c3adfd*
+
+Finally you can copy tensorflow wheel into your local filesystem:
+
+.. code-block:: bash
+
+  CONTAINER_ID=b4fef7c3adfd
+  DEST_DIR=/tmp/output
+
+  docker cp $CONTAINER_ID:/tmp/tensorflow_pkg $DEST_DIR
+
+Where:
+
+- $CONTAINER_ID - id copied from `docker ps` command
+- $DEST_DIR - destination directory for compiled tensorflow
+
+As result you should have compiled tensorflow in your destination dir:
+
+.. code-block:: bash
+
+  ls $DEST_DIR
+
+  tensorflow-1.11.0-cp36-cp36m-linux_x86_64.whl
+
+Congratulation! You have wheel package and you can easily install it via *pip*:
+
+.. code-block:: bash
+
+  cd $DEST_DIR
+  python -m pip install tensorflow-1.11.0-cp36-cp36m-linux_x86_64.whl
+
+The end!
+
 
 .. _install from sources: https://www.tensorflow.org/install/install_sources
 .. _bazel: https://docs.bazel.build/
