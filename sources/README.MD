@@ -14,7 +14,7 @@ When image is downloaded, you can check if sources exist:
 
 ```
 root@874c71f92f04:/# ls -la / | grep tensorflow
-drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.10
+drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.11
 ```
 
 In example above we have downloaded 1.10.0 version.
@@ -23,7 +23,7 @@ By default directory where we extracted tensorflow sources is a working director
 Lets check what is inside working dir:
 
 ```
-root@874c71f92f04:/tensorflow-r1.10# ls -la
+root@874c71f92f04:/tensorflow-r1.11# ls -la
 total 288
 drwxr-xr-x  5 root root   4096 Jul  9 20:38 .
 drwxr-xr-x  1 root root   4096 Aug 12 07:14 ..
@@ -56,7 +56,7 @@ If you want to build your own tensorflow sources image, you have to provide tens
 version. For example:
 
 ```
-docker build --build-arg TF_VERSION=1.10.0 -t my-tensorflow-sources .
+docker build --build-arg TF_VERSION=1.11 -t my-tensorflow-sources .
 ```
 
 Where:
