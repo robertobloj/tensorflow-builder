@@ -30,7 +30,9 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
 # 2. We make python3 default distribution, we also install required packages
 RUN ln -fs /usr/bin/python3.6 /usr/bin/python
 RUN python -m pip install --upgrade pip && \
-    python -m pip install six numpy wheel setuptools
+    python -m pip install six numpy wheel setuptools h5py && \
+    python -m pip install keras_applications --no-deps && \
+    python -m pip install keras_preprocessing --no-deps && \
 
 # 3. We configure tensorflow
 RUN python ./configure.py
