@@ -17,7 +17,7 @@ root@874c71f92f04:/# ls -la / | grep tensorflow
 drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.10
 ```
 
-In example above we have downloaded 1.11 version.
+In example above we have downloaded 1.10 version.
 By default directory where we extracted tensorflow sources is a working directory.
 
 Lets check what is inside working dir:

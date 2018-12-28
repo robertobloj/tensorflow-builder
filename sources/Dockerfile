@@ -7,7 +7,6 @@ ENV tensorflow_name tensorflow-$TF_VERSION
 ENV tensorflow_zip https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip
 ENV tensorflow_zip_dest $tensorflow_name.zip
 
-# 1. download tensorflow and install required pip packages
 RUN wget -c $tensorflow_zip -O /tmp/$tensorflow_zip_dest 2>&1 && \
     unzip /tmp/$tensorflow_zip_dest -d / && \
     rm /tmp/$tensorflow_zip_dest
