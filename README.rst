@@ -1,4 +1,4 @@
-===============================
+r1.10===============================
 TensorFlow builder
 ===============================
 
@@ -80,8 +80,8 @@ Wait until compilation process is done. You should see logs similar to:
   INFO: 6801 processes: 6801 local.
   INFO: Build completed successfully, 7502 total actions
   Sun Aug 19 09:23:50 UTC 2018 : === Preparing sources in dir: /tmp/tmp.jbIBSPuSwb
-  /tensorflow-r1.11 /tensorflow-r1.11
-  /tensorflow-r1.11
+  /tensorflow-r1.10 /tensorflow-r1.10
+  /tensorflow-r1.10
   Sun Aug 19 09:24:02 UTC 2018 : === Building wheel
   warning: no files found matching '*.dll' under directory '*'
   warning: no files found matching '*.lib' under directory '*'
