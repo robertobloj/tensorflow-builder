@@ -105,5 +105,5 @@ tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 Congratulation! You have wheel package and you can easily install it via *pip*.
 
 ```
-pip install tensorflow-1.9.0-cp36-cp36m-linux_x86_64.whl
+pip install tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 ```
