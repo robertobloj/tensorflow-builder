@@ -127,14 +127,14 @@ As result you should have compiled tensorflow in your destination dir:
 
   ls $DEST_DIR
 
-  tensorflow-1.11.0-cp36-cp36m-linux_x86_64.whl
+  tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 
 Congratulation! You have wheel package and you can easily install it via *pip*:
 
 .. code-block:: bash
 
   cd $DEST_DIR
-  python -m pip install tensorflow-1.11.0-cp36-cp36m-linux_x86_64.whl
+  python -m pip install tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
 
 The end!
 
