@@ -1,7 +1,7 @@
 FROM centos
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-ARG BAZEL_VER=0.15.1
+ARG BAZEL_VER=0.19.2
 
 ENV bazel_installer https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-7/vbatts-bazel-epel-7.repo
 ENV bazel_installer_file /etc/yum.repos.d/vbatts-bazel-epel-7.repo
@@ -34,7 +34,9 @@ RUN yum install -y $ius_rpm 2>&1 && \
     yum install -y python36u \
         python36u-pip \
         python36u-devel \
+        python3-dev \
+        python3-pip \
         python-wheel 2>&1 && \
-    bazel version
+        bazel version
 
 CMD /bin/bash

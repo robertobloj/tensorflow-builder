@@ -1,6 +1,7 @@
 # TensorFlow Bazel
 
-Image installs and configures [bazel build tool](https://docs.bazel.build/) for compiling [tensorflow](https://www.tensorflow.org) directly from sources.
+Image installs and configures [bazel build tool](https://docs.bazel.build/)
+for compiling [tensorflow](https://www.tensorflow.org) directly from sources.
 
 Check more documentation on [github](https://github.com/robertobloj/tensorflow-builder).
 
@@ -17,13 +18,19 @@ When image is downloaded, you can check if bazel exists:
 ```
 root@39f0849fe655:/# bazel version
 
-WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server
-using the command "bazel shutdown".
-Build label: 0.15.1
+Extracting Bazel installation...
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.protobuf.UnsafeUtil (file:/root/.cache/bazel/_bazel_root/install/cca766fceacebfea470f866e003d5e57/_embedded_binaries/A-s
+erver.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of com.google.protobuf.UnsafeUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server using the command "bazel shutdown".
+Build label: 0.27.0
 Build target: bazel-out/k8-opt/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
-Build time: Mon Jul 16 14:16:24 2018 (1531750584)
-Build timestamp: 1531750584
-Build timestamp as int: 1531750584
+Build time: Mon Jun 17 00:00:00 2019 (1560729600)
+Build timestamp: 1560729600
+Build timestamp as int: 1560729600
 ```
 
 That's all. Now you can use bazel.
