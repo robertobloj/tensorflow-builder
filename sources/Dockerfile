@@ -1,7 +1,8 @@
 FROM robloj/tensorflow-bazel
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-ARG TF_VERSION='r1.10'
+ARG TF_VERSION='r1.13'
+
 
 ENV tensorflow_name tensorflow-$TF_VERSION
 ENV tensorflow_zip https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip
