@@ -1,4 +1,5 @@
-FROM robloj/tensorflow-sources
+FROM roob-sources
+#FROM robloj/tensorflow-sources
 MAINTAINER Robert Obloj <robert.obloj@ingbank.pl>
 
 # variables for configure.py script
@@ -30,12 +31,13 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
 # 2. We make python3 default distribution, we also install required packages
 RUN ln -fs /usr/bin/python3.6 /usr/bin/python
 RUN python -m pip install --upgrade pip && \
-    python -m pip install six numpy wheel setuptools h5py
-RUN python -m pip install keras_applications==1.0.5 --no-deps && \
-    python -m pip install keras_preprocessing==1.0.3 --no-deps
+    python -m pip install six numpy wheel setuptools h5py \
+    mock future>=0.17.1
+RUN python -m pip install keras_applications==1.0.6 --no-deps && \
+    python -m pip install keras_preprocessing==1.0.5 --no-deps
 
 # 3. We configure tensorflow
-RUN python ./configure.py
+RUN python ./configure.py 2>&1
 
 # 4. We compile tensorflow and do "sleep infinity", because you want to copy
 # tensorflow wheel into local filesystem

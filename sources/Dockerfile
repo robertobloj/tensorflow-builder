@@ -1,4 +1,5 @@
-FROM robloj/tensorflow-bazel
+FROM roob-bazel
+#FROM robloj/tensorflow-bazel
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
 ARG TF_VERSION='r1.13'

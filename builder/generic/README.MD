@@ -1,7 +1,8 @@
 # TensorFlow generic binary
 
 Image allows to compile [tensorflow](https://www.tensorflow.org)
-from sources with *generic mode*. Read more about *generic mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
+from sources with *generic mode*. Read more
+about *generic mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
 __IMPORTANT:__ Generic image is prepared for producing code optimized
 for the most common IA32/AMD64/EM64T processors.
@@ -11,6 +12,12 @@ But, if you do not know exactly what CPU users of your application
 will have, then you should use this option.
 
 Check more documentation on [github](https://github.com/robertobloj/tensorflow-builder).
+
+## How to build docker image?
+
+```console
+docker build -t my-tensorflow-builder .
+```
 
 ## How to compile tensorflow with generic mode?
 
