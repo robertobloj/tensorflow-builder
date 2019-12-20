@@ -3,6 +3,8 @@
 Image installs and configures [bazel build tool](https://docs.bazel.build/)
 for compiling [tensorflow](https://www.tensorflow.org) directly from sources.
 
+Additionally image contains [python3.7](https://www.python.org/) which is required for [tensorflow](https://www.tensorflow.org).
+
 Check more documentation on [github](https://github.com/robertobloj/tensorflow-builder).
 
 ## How to use image?

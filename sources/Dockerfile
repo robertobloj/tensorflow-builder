@@ -1,8 +1,7 @@
-FROM roob-bazel
-#FROM robloj/tensorflow-bazel
+FROM robloj/tensorflow-bazel:r1.15
 MAINTAINER Robert Obloj <robloj@gmail.com>
 
-ARG TF_VERSION='r1.13'
+ARG TF_VERSION='r1.15'
 
 
 ENV tensorflow_name tensorflow-$TF_VERSION
