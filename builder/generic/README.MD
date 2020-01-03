@@ -16,7 +16,7 @@ Check more documentation on [github](https://github.com/robertobloj/tensorflow-b
 ## How to build docker image?
 
 ```console
-docker build -t my-tensorflow-builder .
+docker build -t tensorflow-generic .
 ```
 
 ## How to compile tensorflow with generic mode?
@@ -109,7 +109,7 @@ As result you should have compiled tensorflow in your destination dir:
 ```
 ls $DEST_DIR
 
-tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
+tensorflow-1.15.0-cp36-cp36m-linux_x86_64.whl
 ```
 
 

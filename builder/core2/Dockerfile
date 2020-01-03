@@ -28,7 +28,7 @@ RUN if [ "$(printf '%s\n' "$USE_ABI_SWITCH" "$CURRENT_GCC_VER" | sort -V | head 
     export abi_switch="--cxxopt='-D_GLIBCXX_USE_CXX11_ABI=0'"; fi
 
 # 2. We make python3 default distribution, we also install required packages
-RUN ln -fs /usr/bin/python3.6 /usr/bin/python
+RUN ln -fs /usr/bin/python3.7 /usr/bin/python
 RUN python -m pip install --upgrade pip && \
     python -m pip install six numpy wheel setuptools
 
