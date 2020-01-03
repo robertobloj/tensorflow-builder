@@ -1,5 +1,5 @@
 FROM robloj/tensorflow-sources:r1.14
-MAINTAINER Robert Obloj <robert.obloj@ingbank.pl>
+MAINTAINER Robert Obloj <robloj@gmail.com>
 
 # variables for configure.py script
 ARG TF_NEED_JEMALLOC=1
