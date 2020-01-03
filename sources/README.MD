@@ -15,16 +15,16 @@ When image is downloaded, you can check if sources exist:
 
 ```
 root@874c71f92f04:/# ls -la / | grep tensorflow
-drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.15
+drwxr-xr-x   5 root root 4096 Jul  9 20:38 tensorflow-r1.14
 ```
 
-In example above we have downloaded 1.15 version.
+In example above we have downloaded 1.14 version.
 By default directory where we extracted tensorflow sources is a working directory.
 
 Lets check what is inside working dir:
 
 ```
-root@874c71f92f04:/tensorflow-r1.15# ls -la
+root@874c71f92f04:/tensorflow-r1.14# ls -la
 total 376
 drwxr-xr-x  6 root root   4096 Oct 14 21:08 .
 drwxr-xr-x  1 root root   4096 Dec 20 11:39 ..

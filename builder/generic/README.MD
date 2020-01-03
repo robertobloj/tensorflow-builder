@@ -70,18 +70,14 @@ Open new terminal and type:
 
 ```
 docker ps
-
 ```
-
 
 Example result:
 
 ```
 CONTAINER ID   IMAGE                     COMMAND       CREATED        STATUS       PORTS  NAMES
 b4fef7c3adfd   centos-tensorflow-generic "/bin/sh..."  5 seconds ago  Up 4 seconds        tf2copy
-
 ```
-
 
 Your container id is *b4fef7c3adfd*
 
@@ -109,7 +105,7 @@ As result you should have compiled tensorflow in your destination dir:
 ```
 ls $DEST_DIR
 
-tensorflow-1.15.0-cp36-cp36m-linux_x86_64.whl
+tensorflow-1.14.1-cp37-cp37m-linux_x86_64.whl
 ```
 
 
