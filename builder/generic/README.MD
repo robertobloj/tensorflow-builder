@@ -1,7 +1,8 @@
 # TensorFlow generic binary
 
 Image allows to compile [tensorflow](https://www.tensorflow.org)
-from sources with *generic mode*. Read more about *generic mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
+from sources with *generic mode*. Read more
+about *generic mode* [here](https://gcc.gnu.org/onlinedocs/gcc-4.5.3/gcc/i386-and-x86_002d64-Options.html).
 
 __IMPORTANT:__ Generic image is prepared for producing code optimized
 for the most common IA32/AMD64/EM64T processors.
@@ -11,6 +12,12 @@ But, if you do not know exactly what CPU users of your application
 will have, then you should use this option.
 
 Check more documentation on [github](https://github.com/robertobloj/tensorflow-builder).
+
+## How to build docker image?
+
+```console
+docker build -t tensorflow-generic .
+```
 
 ## How to compile tensorflow with generic mode?
 
@@ -63,18 +70,14 @@ Open new terminal and type:
 
 ```
 docker ps
-
 ```
-
 
 Example result:
 
 ```
 CONTAINER ID   IMAGE                     COMMAND       CREATED        STATUS       PORTS  NAMES
 b4fef7c3adfd   centos-tensorflow-generic "/bin/sh..."  5 seconds ago  Up 4 seconds        tf2copy
-
 ```
-
 
 Your container id is *b4fef7c3adfd*
 
@@ -102,7 +105,7 @@ As result you should have compiled tensorflow in your destination dir:
 ```
 ls $DEST_DIR
 
-tensorflow-1.10.0-cp36-cp36m-linux_x86_64.whl
+tensorflow-1.14.1-cp37-cp37m-linux_x86_64.whl
 ```
 
 
